@@ -1,58 +1,92 @@
 #include "config.h"
 #include "ui_config.h"
+#include <QRegularExpression>
 
-config::config(const QString& configLocation, QWidget* parent /* = nullptr */) : QDialog(parent),
-	m_ui(std::make_unique<Ui::configui>()),
-	m_settings(std::make_unique<QSettings>(configLocation, QSettings::IniFormat, this))
+Config::Config(const QString& configLocation, QWidget* parent /* = nullptr */) : QDialog(parent),
+m_ui(std::make_unique<Ui::configui>()),
+m_settings(std::make_unique<QSettings>(configLocation, QSettings::IniFormat, this))
 {
 	m_ui->setupUi(this);
 
-	setWindowTitle("Qt Example Plugin :: Config");
+	setWindowTitle("JUL14Ns Audio Mods :: Config");
 
 	// Connect UI Elements.
-	connect(m_ui->pbOk, &QPushButton::clicked, this, &config::saveSettings);
+	connect(m_ui->pbOk, &QPushButton::clicked, this, [&] {
+		this->saveSettings();
+		this->close();
+	});
+	connect(m_ui->pbApply, &QPushButton::clicked, this, [&] {
+		this->saveSettings();
+	});
 	connect(m_ui->pbCancel, &QPushButton::clicked, this, &QWidget::close);
+
+	connect(m_ui->vad_cutoff, &QSlider::valueChanged, this, [&](int value) {
+		m_ui->vad_cutoff_percentage->setText(QString::asprintf("%d %", value));
+	});
+	connect(m_ui->vad_rolloff, &QSlider::valueChanged, this, [&](int value) {
+		m_ui->vad_rolloff_time->setText(QString::asprintf("%d ms", value * 10));
+	});
 
 	adjustSize();
 	setWindowFlags(Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
 	setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 }
 
-config::~config() {
+Config::~Config() {
 	m_settings->sync();
 }
 
 
-void config::setConfigOption(const QString& option, const QVariant& value) {
+void Config::setConfigOption(const QString& option, const QVariant& value) {
 	m_settings->setValue(option, value);
 }
 
-QVariant config::getConfigOption(const QString& option) const {
+QVariant Config::getConfigOption(const QString& option) const {
 	return m_settings->value(option);
 }
 
-void config::showEvent(QShowEvent* /* e */) {
+void Config::showEvent(QShowEvent* /* e */) {
 	adjustSize();
 	loadSettings();
 }
 
-void config::changeEvent(QEvent* e) {
+void Config::changeEvent(QEvent* e) {
 	if (e->type() == QEvent::StyleChange && isVisible()) {
-		m_ui->verticalLayoutWidget_2->adjustSize();
 		adjustSize();
 	}
 }
 
-void config::saveSettings() {
-	setConfigOption("exampleSwitch", m_ui->exampleSwitch->isChecked());
-	setConfigOption("exampleText", m_ui->exampleText->text());
-	setConfigOption("exampleNumber", m_ui->exampleNumber->value());
+void Config::saveSettings() {
+	setConfigOption("inputFilter", m_ui->input_filter->isChecked());
+	setConfigOption("inputVAD", m_ui->input_vad->isChecked());
+	setConfigOption("vadCutoff", m_ui->vad_cutoff->value());
+	setConfigOption("vadRolloff", m_ui->vad_rolloff->value());
+	setConfigOption("inputAGC", m_ui->input_agc->isChecked());
 
-	close();
+	setConfigOption("outputFilter", m_ui->output_filter->isChecked());
+	QStringList uuids{};
+	//for (auto& u : m_ui->uuids->toPlainText().split(QRegExp{ "[\n,;|:]" })) {
+	for (auto& u : m_ui->uuids->toPlainText().split(QRegularExpression{ "[\n,;|:]" })) {
+		uuids.push_back(u.trimmed());
+	}
+	setConfigOption("filterIncomingUuids", uuids);
 }
 
-void config::loadSettings() {
-	m_ui->exampleSwitch->setChecked(getConfigOption("exampleSwitch").toBool());
-	m_ui->exampleText->setText(getConfigOption("exampleText").toString());
-	m_ui->exampleNumber->setValue(getConfigOption("exampleNumber").toInt());
+void Config::loadSettings() {
+	m_ui->input_filter->setChecked(getConfigOption("inputFilter").toBool());
+	m_ui->input_vad->setChecked(getConfigOption("inputVAD").toBool());
+	m_ui->vad_cutoff->setValue(getConfigOption("vadCutoff").toInt());
+	m_ui->vad_rolloff->setValue(getConfigOption("vadRolloff").toInt());
+	m_ui->input_agc->setChecked(getConfigOption("inputAGC").toBool());
+
+	m_ui->output_filter->setChecked(getConfigOption("outputFilter").toBool());
+	QStringList uuids = getConfigOption("filterIncomingUuids").toStringList();
+	bool first = true;
+	QString uuid_string = "";
+	for (auto& uuid : uuids) {
+		if (!first) uuid_string += "\n";
+		else first = false;
+		uuid_string += uuid;
+	}
+	m_ui->uuids->setPlainText(uuid_string);
 }

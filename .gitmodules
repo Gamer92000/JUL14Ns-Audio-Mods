@@ -1,3 +1,6 @@
-[submodule "ts3client-pluginsdk"]
-	path = ts3client-pluginsdk
+[submodule "3rdParty/ts3client-pluginsdk"]
+	path = 3rdParty/ts3client-pluginsdk
 	url = https://github.com/teamspeak/ts3client-pluginsdk/
+[submodule "3rdParty/rnnoise"]
+	path = 3rdParty/rnnoise
+	url = https://github.com/Gamer92000/rnnoise

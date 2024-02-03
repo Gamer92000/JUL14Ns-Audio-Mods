@@ -6,7 +6,7 @@ on:
       - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
 env:
-  PLUGIN_NAME: QtExamplePlugin
+  PLUGIN_NAME: JUL14Ns_Audio_Mods
 
 jobs:
   prebuild:
@@ -65,6 +65,7 @@ jobs:
         with:
           version: '5.15.2'
           target: 'desktop'
+          modules: 'qtcharts'
           arch: ${{ matrix.os == 'windows-2019' && (matrix.arch == 'x64' && 'win64_msvc2019_64' || 'win32_msvc2019' ) || (matrix.os == 'ubuntu-latest' && 'gcc_64' || 'clang_64') }}
           dir: '${{ github.workspace }}'
           cache: true
@@ -131,6 +132,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            ./QtExamplePlugin.${{ github.ref_name }}.ts3_plugin
+            ./${{ env.PLUGIN_NAME }}.${{ github.ref_name }}.ts3_plugin
           draft: false
           prerelease: false

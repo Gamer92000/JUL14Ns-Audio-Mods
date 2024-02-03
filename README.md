@@ -1,71 +1,26 @@
-# 🔧 Qt Example Plugin
+# 🔧 JUL14Ns Audio Mods
 
 <div align="center">
 
-  [![GitHub license](https://img.shields.io/github/license/Gamer92000/TeamSpeak3-Qt-Plugin-Template.svg)](https://github.com/Gamer92000/TeamSpeak3-Qt-Plugin-Template/blob/main/LICENSE)
-  [![GitHub commits](https://badgen.net/github/commits/Gamer92000/TeamSpeak3-Qt-Plugin-Template/main)](https://GitHub.com/Gamer92000/TeamSpeak3-Qt-Plugin-Template/commit/)
-  [![Github stars](https://img.shields.io/github/stars/Gamer92000/TeamSpeak3-Qt-Plugin-Template.svg)](https://GitHub.com/Gamer92000/TeamSpeak3-Qt-Plugin-Template/stargazers/)
-  [![Renovate](https://img.shields.io/badge/maintained%20with-renovate-brightgreen)](https://github.com/Gamer92000/TeamSpeak3-Qt-Plugin-Template/issues/4)
-  <!-- [![Deploy](https://img.shields.io/github/actions/workflow/status/Gamer92000/TeamSpeak3-Qt-Plugin-Template/deploy.yml?branch=*)](https://github.com/Gamer92000/TeamSpeak3-Qt-Plugin-Template/actions/workflows/deploy.yml) -->
-  <!-- https://github.com/badges/shields/issues/8736 -->
+  [![GitHub license](https://img.shields.io/github/license/Gamer92000/JUL14Ns-Audio-Mods.svg)](https://github.com/Gamer92000/JUL14Ns-Audio-Mods/blob/main/LICENSE)
+  [![GitHub commits](https://badgen.net/github/commits/Gamer92000/JUL14Ns-Audio-Mods/main)](https://GitHub.com/Gamer92000/JUL14Ns-Audio-Mods/commit/)
+  [![Github stars](https://img.shields.io/github/stars/Gamer92000/JUL14Ns-Audio-Mods.svg)](https://GitHub.com/Gamer92000/JUL14Ns-Audio-Mods/stargazers/)
   <br>
   <h3>If you like this project, please consider giving it a star ⭐️!</h3>
 </div>
 
 ## 📖 Description
 
-This is a simple example plugin for TeamSpeak. It is meant to be used as a starting point for developing your own plugins. Using CMake, it can be compiled for all supported platforms.
+*JUL14Ns Audio Mods* is a plugin for TeamSpeak 3 that adds a few features to the audio system.
+It allows you to filter background noise using the [RNNoise](https://jmvalin.ca/demo/rnnoise/) library, adds a configurable voice activation detection, and a compressor that does not lift noise to infinity.
 
 ## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 📚 Documentation
+## 📦 3rd Party Libraries
 
-An outdated documentation for the TeamSpeak Client SDK can be found in the [latest release](https://github.com/TeamSpeak-Systems/ts3client-pluginsdk/releases/tag/23) of the plugin SDK.
-
-This plugin uses the [Qt](https://www.qt.io/) framework. The Qt documentation can be found [here](https://doc.qt.io/).
-
-## 📦 Requirements
-
-To compile this plugin (on Windows), you need the following software installed:
-
-* [Qt =5.15.2](https://www.qt.io/download)
-* [CMake >=3.10](https://cmake.org/download/)
-* [Visual Studio <=2019 (Toolset v140)](https://visualstudio.microsoft.com/downloads/)
-
-## 🚀 Usage
-
-To create a new plugin based on this example, you can use the button `Use this template` on GitHub. This will create a new repository for you, which you can clone and modify.
-
-### 👶 First steps
-
-First, you need to rename the plugin. To do this, you need to change the following files:
-
-* `.github/workflows/deploy.yml`
-* `deploy/package.ini`
-* `src/config.cpp`
-* `src/definitions.hpp`
-
-When you want to compile locally you need to point CMake to the correct Qt installation. To do this, you need to change the following line in `CMakeLists.txt`:
-
-```diff
--# list(APPEND CMAKE_PREFIX_PATH "H:/Qt/5.15.2/msvc2019_64")
-+list(APPEND CMAKE_PREFIX_PATH "H:/Qt/5.15.2/msvc2019_64")
-```
-
-Furthermore, you need to set `plugin_name` to allow for CMake to work properly:
-
-```diff
--project("<plugin_name>")
-+project("example")
-```
-
-### 📦 Before Updating
-
-Even the version numbering is handeled by the build script.
-The version number is defined by the tag pushed to GitHub.
-So there is nothing special you need to do 🎉.
+This plugin uses the [Qt](https://www.qt.io/) framework and the [RNNoise](https://jmvalin.ca/demo/rnnoise/) library.
 
 ## ⚠️ Disclaimer
 

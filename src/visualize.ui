@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>visualizeui</class>
+ <widget class="QDialog" name="visualizeui">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>654</width>
+    <height>323</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="agc">
+      <attribute name="title">
+       <string>Input AGC</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="Graph" name="agcPlot" native="true"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="lufs">
+      <attribute name="title">
+       <string>LUFS (Pre AGC)</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="Graph" name="lufsPlot" native="true"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="lufsAgc">
+      <attribute name="title">
+       <string>LUFS (Post AGC)</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <widget class="Graph" name="lufsAgcPlot" native="true"/>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Graph</class>
+   <extends>QWidget</extends>
+   <header>graph.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
