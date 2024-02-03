@@ -54,3 +54,5 @@ void Visualize::addLufsAgcData(double data)
 	double key = time.elapsed() / 1000.0;
 	m_ui->lufsAgcPlot->addDataPoint(key, data);
 }
+
+Visualize::~Visualize(){}

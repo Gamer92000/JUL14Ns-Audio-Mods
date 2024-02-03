@@ -13,6 +13,7 @@ class Visualize : public QDialog
 	Q_OBJECT
 public:
 	Visualize(QWidget* parent = nullptr);
+	~Visualize();
 	void addAgcData(double data);
 	void addLufsData(double data);
 	void addLufsAgcData(double data);

@@ -257,7 +257,7 @@ void ts3plugin_onEditMixedPlaybackVoiceDataEvent(uint64 serverConnectionHandlerI
 	}
 }
 
-void ts3plugin_onEditCapturedVoiceDataEvent(uint64 serverConnectionHandlerID, short *rawSamples, int sampleCount, int channels, int *edited)
+void ts3plugin_onEditCapturedVoiceDataEvent(uint64 serverConnectionHandlerID, short *samples, int sampleCount, int channels, int *edited)
 {
 	// ensure 480 samples (10ms 48kHz)
 	if (sampleCount != 480) {
@@ -266,7 +266,7 @@ void ts3plugin_onEditCapturedVoiceDataEvent(uint64 serverConnectionHandlerID, sh
 		ts3Functions.logMessage(logMessage.str().c_str(), LogLevel_WARNING, PLUGIN_NAME, serverConnectionHandlerID);
 	}
 	
-	std::span<short> samples(rawSamples, sampleCount);
+	//std::span<short> samples(rawSamples, sampleCount);
 
 	bool filter = configObject->getConfigOption("inputFilter").toBool();
 	bool vad = configObject->getConfigOption("inputVAD").toBool();
