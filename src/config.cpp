@@ -21,7 +21,7 @@ m_settings(std::make_unique<QSettings>(configLocation, QSettings::IniFormat, thi
 	connect(m_ui->pbCancel, &QPushButton::clicked, this, &QWidget::close);
 
 	connect(m_ui->vad_cutoff, &QSlider::valueChanged, this, [&](int value) {
-		m_ui->vad_cutoff_percentage->setText(QString::asprintf("%d %", value));
+		m_ui->vad_cutoff_percentage->setText(QString::asprintf("%d \\%", value));
 	});
 	connect(m_ui->vad_rolloff, &QSlider::valueChanged, this, [&](int value) {
 		m_ui->vad_rolloff_time->setText(QString::asprintf("%d ms", value * 10));

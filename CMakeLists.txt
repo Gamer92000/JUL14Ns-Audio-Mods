@@ -50,6 +50,7 @@ message("Looking for Qt...")
 
 find_package(Qt${QT_VERSION} REQUIRED Core Widgets Charts)
 
+include_directories("src")
 include_directories("3rdParty/ts3client-pluginsdk/include")
 include_directories("3rdParty/rnnoise/include")
 
