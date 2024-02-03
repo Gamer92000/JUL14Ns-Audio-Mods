@@ -9,6 +9,7 @@
 #include <sstream>
 #include <algorithm>
 #include <span>
+#include <cstring>
 
 #include "teamspeak/public_errors.h"
 #include "teamspeak/public_errors_rare.h"
